@@ -135,11 +135,11 @@ def main():
         m2_index = map_data[map_data.maps == random_list[1]].index.values.tolist()
         m3_index = map_data[map_data.maps == random_list[2]].index.values.tolist()
         
-        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[m1_index[0]])
+        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[int(m1_index[0])])
 
-        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[m2_index[0]])
+        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[(m2_index[0])])
 
-        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[m3_index[0]])
+        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[(m3_index[0])])
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
