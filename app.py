@@ -11,7 +11,37 @@ model = pickle.load(pickle_in)
 pickle_in = open('models/enc.pkl', 'rb') 
 enc = pickle.load(pickle_in)
 
- 
+player_data = pd.DataFrame(data={'players':['serral', 'trap', 'parting','reynor','jimrising','gerald','hellraiser','special',
+                                           'uthermal','mana','maxpax','solar','showtime','liquidclem','stats','innovation',
+                                           'acerbly','rogue','byun','heromarine','bunny','uwuthermal','lambo','blyonfire',
+                                           'zest','vibe','agoelazer','maru','dark','jason','marinelord','clem','tlharstem','neeb',
+                                           'neeblet','liquidmana','has','nice','rex','enderr','astrea','probe','teebul','namshar','scarlett',
+                                           'nina','future','masa','tlo','epic','skillous','mcanning','pilipili','jonsnow','disk',
+                                           'vindicta','cham','kelazhur','erik','thezerglord','denver','geralt','gungfubanda',
+                                           'rail','soul','ptitdrogo','dns','vanya','souleer','gostephano','kas','krystianer',
+                                           'goblin','ziggy','shadown','time','igmacsed','tyty','llllllllllll','armani','patience',
+                                           'sortof','risky','liquidtlo','elazer','lilbow','silky','seither','harstem','dpgparting',
+                                           'bly','stephano','soo','dear','hurricane','cyan','liquidthermy','semper','tsgsolar','xkawaiian',
+                                           'railgan','beastyqt','zanster','sos','hateme','cure','puck','hero','goreynor','pig',
+                                           'liilllliilll','classic','iiiiiiiiiiii','liquidsnute','nerchio','snute','alive','true',
+                                           'guru','gumiho','optimus','nightend','dayshi','pokebunny','miszu','state','bop','dpgcure',
+                                           'a.i.','drg','arctur','art','dream','bratok','lllllllllll','impact','inzane','rob',
+                                           'liquidtaeja','ogzest','iasonu','cloudy','demuslim','firecake']}) 
+map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'oxide le','lightshade le', 'blackburn le', 'romanticide le',
+                                        'beckett industries le', 'pillars of gold le', 'submarine le','deathaura le', 'ruins of seras', 
+                                        'ice and chrome le','nightshade le', 'lerilak crest', 'world of sleepers le',
+                                        'ever dream le', 'eternal empire le', 'golden wall le','ephemeron le', 'simulacrum le', 
+                                        'zen le', 'dreamcatcher le','acid plant le', 'triton le', 'disco bloodbath le', 'acropolis le',
+                                        'thunderbird le', "winter's gate le", 'cyber forest le',"king's cove le", 'kairos junction le', 
+                                        'new repugnancy le','battle on the boardwalk le', 'port aleksander le', 'year zero le',
+                                        'automaton le', 'fort alexander le', 'para site le','echo le (void)', 'galactic process le', 
+                                        'lost and found le','mech depot le', 'new gettysburg le', 'odyssey le', 'backwater le',
+                                        'blueshift le', 'daybreak le (void)', 'dusk towers','cerulean fall le', 'ascension to aiur le', 
+                                        'catalyst le','16-bit le', 'blackpink le', 'neon violet square le','eastwatch le', 'abyssal reef le', 
+                                        'cactus valley le','sequencer le', 'proxima station le', 'newkirk precinct te (void)',
+                                        "bel'shir vestige le (void)", 'honorgrounds le','overgrowth le (void)', 'habitation station le (void)',
+                                        'frozen temple', 'king sejong station le', 'frost le','apotheosis le', 'ruins of endion', 
+                                        'prion terraces', 'ulrena','orbital shipyard', 'central protocol', 'terraform le (void)','coda le (void)']})  
 
 @st.cache()
 # defining the function which will make prediction using the data which the user inputs 
@@ -63,7 +93,8 @@ def main():
     # following lines create boxes in which user can enter data required to make prediction 
     playerOne = st.text_input('Player One','Byun')
     playerTwo = st.text_input('Player Two','Maru')
-    mapName = st.selectbox('Map',map_data.maps)
+    mapName = st.text_input('Map','Map')
+    #mapName = st.selectbox('Map',map_data.maps)
     result =""
       
     # when 'Predict' is clicked, make the prediction and store it 
