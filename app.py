@@ -3,7 +3,7 @@ import pickle
 import streamlit as st
 import pandas as pd
 import xgboost
-import plotly.figure_factory as ff
+import plotly
 from sklearn.preprocessing import OneHotEncoder
 
 # loading the trained model
