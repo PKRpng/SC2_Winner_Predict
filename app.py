@@ -104,11 +104,11 @@ def prediction(player_one, player_two, map1, map2, map3):
 def rand_map():
 
     random_list = random.sample(random_map, 3)
-    m1_index = map_data[map_data.maps == random_list[0]].index.values.tolist()[0]
+    #m1_index = map_data[map_data.maps == random_list[0]].index.values.tolist()[0]
     m2_index = map_data[map_data.maps == random_list[1]].index.values.tolist()[0]
     m3_index = map_data[map_data.maps == random_list[2]].index.values.tolist()[0]
      
-    map1Name = st.selectbox('Map 1',map_data.maps, m1_index)
+    #map1Name = st.selectbox('Map 1',map_data.maps, m1_index)
     map2Name = st.selectbox('Map 2',map_data.maps, m2_index)
     map3Name = st.selectbox('Map 3',map_data.maps, m3_index)  
         
@@ -134,8 +134,19 @@ def main():
     with st.expander("See all player names"):
         names = player_data.players.values.tolist
         st.write(player_names)
-     
-    map1Name, map2Name, map3Name = rand_map()
+    
+    def change_value():
+        st.session_state.map1Name = map2Name
+    
+    if 'map1Name' not in st.session_state:
+        st.session_state.map1Name = 'lol'
+        
+    x = st.selectbox('Map 1',map_data.maps, 10, on_change=change_value)
+    
+    #map1 = st.selectbox('Map 1',map_data.maps, 10)
+    
+    #map1Name, 
+    map2Name, map3Name = rand_map()
     
     st.write('Select random maps from top 15 most frequently played maps')
     #Fill maps with random map from top 10
@@ -144,7 +155,7 @@ def main():
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
-        result = prediction(playerOne, playerTwo, map1Name, map2Name, map3Name) 
+        result = prediction(playerOne, playerTwo, st.session_state.map1Name, map2Name, map3Name) 
         st.success(result)
     
 if __name__=='__main__': 
