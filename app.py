@@ -140,9 +140,9 @@ def main():
     if 'map3Name' not in st.session_state:
         st.session_state.map3Name = ''
     
-    map_one = st.selectbox('Map sil',map_data.maps, 54, on_change=change_m1)
-    map_two = st.selectbox('Mapppp',map_data.maps, 2, on_change=change_m2)
-    map_three = st.selectbox('Maputy',map_data.maps, 20, on_change=change_m3)
+    map_one = st.selectbox('Map 1',map_data.maps, 54, on_change=change_m1)
+    map_two = st.selectbox('Map 2',map_data.maps, 2, on_change=change_m2)
+    map_three = st.selectbox('Map 3',map_data.maps, 20, on_change=change_m3)
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
