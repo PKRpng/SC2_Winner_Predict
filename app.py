@@ -65,7 +65,7 @@ def prediction(player_one, player_two, map_name):
     else:
         st.error('cant find this map, please select another')
      
-    df = pd.DataFrame(data={'map_name':map_name, 'player_one':player_one, 'player_two':player_two})
+    df = pd.DataFrame(data={'map_name':[map_name], 'player_one':[player_one], 'player_two':[player_two]})
     
     #encode
     X = enc.transform(df)
