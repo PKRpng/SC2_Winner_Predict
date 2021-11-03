@@ -2,7 +2,8 @@
 import pickle
 import streamlit as st
 import pandas as pd
-import xgboost
+import xgboost as xgb
+import numpy
 #import plotly
 from sklearn.preprocessing import OneHotEncoder
 
