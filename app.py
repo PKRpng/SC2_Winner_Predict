@@ -48,8 +48,7 @@ map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'o
                                         'prion terraces', 'ulrena','orbital shipyard', 'central protocol', 'terraform le (void)','coda le (void)']})  
 
 stats = pd.read_csv('data/prepared_data.csv')
-player_names = player_data.players.values.tolist()
-player_names = ' '.join(player_names)
+random_player = player_data.players.values.tolist()
 
 random_map = stats.groupby('map_name').count().sort_values(by='date', ascending=False).iloc[:15].reset_index().map_name.values.tolist()
 
@@ -101,6 +100,15 @@ def prediction(player_one, player_two, map1, map2, map3):
     
     return score
 
+def rand_player():
+
+    random_list = random.sample(random_player, 2)
+     
+    playerOne = st.text_input('Player One',random_list[0])
+    playerTwo = st.text_input('Player Two',random_list[1])
+        
+    return playerOne, playerTwo
+
 def rand_map():
 
     random_list = random.sample(random_map, 3)
@@ -126,19 +134,17 @@ def main():
     st.markdown(html_temp, unsafe_allow_html = True) 
       
     # following lines create boxes in which user can enter data required to make prediction 
-    playerOne = st.text_input('Player One','Serral')
-    playerTwo = st.text_input('Player Two','Maru')
+    playerOne, playerTwo = rand_player()
     
     st.markdown('Top players: Serral, Maru, Rogue, Dark, Innovation', unsafe_allow_html=False)
     
-    with st.expander("See all player names"):
-        names = player_data.players.values.tolist
-        st.write(player_names)
+    st.write('Select two random players')
+    if st.button("Random Players"):
+        pass
      
     map1Name, map2Name, map3Name = rand_map()
     
     st.write('Select random maps from top 15 most frequently played maps')
-    #Fill maps with random map from top 10
     if st.button("Random Maps"):
         pass
 
