@@ -10,25 +10,37 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 1,
    "id": "ad77c80a-35e3-4604-8617-b50b206ba502",
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Writing app.py\n"
+     ]
+    }
+   ],
    "source": [
     "%%writefile app.py\n",
     " \n",
     "import pickle\n",
     "import streamlit as st\n",
     "import pandas as pd\n",
+    "import os\n",
     "\n",
     "# loading the trained model\n",
+    "os.getcwd()\n",
+    "\n",
+    "\n",
     "pickle_in = open('xgboost_model.pkl', 'rb') \n",
     "model = pickle.load(pickle_in)\n",
     " \n",
-    "@st.cache()\n",
-    "  \n",
     "players = ['Serral']\n",
-    "maps = ['Jagannatha']"
+    "maps = ['Jagannatha']\n",
+    "\n",
+    "@st.cache()"
    ]
   },
   {
@@ -38,6 +50,7 @@
    "metadata": {},
    "outputs": [],
    "source": [
+    "@st.cache()\n",
     "# defining the function which will make the prediction using the data which the user inputs \n",
     "def prediction(player_one, player_two, map_name):\n",
     "    df = pd.DataFrame(cols = [players, maps])\n",
