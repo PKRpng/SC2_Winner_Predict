@@ -112,7 +112,7 @@ def rand_map():
     map2Name = st.selectbox('Map 2',map_data.maps, m2_index)
     map3Name = st.selectbox('Map 3',map_data.maps, m3_index)  
         
-    return map1Name, map2Name, map3Name
+    return map2Name, map3Name
     
 def main():       
     # front end elements of the web page 
