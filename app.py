@@ -161,7 +161,7 @@ def main():
     
     map_one = st.selectbox('Map 1',map_data.maps, 54, on_change=change_m1)
     map_two = st.selectbox('Map 2',map_data.maps, 2, on_change=change_m2)
-    map_three = st.selectbox('Map 3',map_data.maps, 156, on_change=change_m3)
+    map_three = st.selectbox('Map 3',map_data.maps, 20, on_change=change_m3)
     
     st.write('Select random maps from top 15 most frequently played maps')
     #Fill maps with random map from top 10
