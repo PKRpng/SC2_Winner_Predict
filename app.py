@@ -78,7 +78,7 @@ def prediction(player_one, player_two, map1, map2, map3):
     # Making predictions 
     prediction = model.predict(X)
     
-    p1, p2 = 0
+    p1, p2 = 0, 0
     if prediction[0] == 0:
         p1 = 1
     else:
