@@ -3,6 +3,8 @@ import pickle
 import streamlit as st
 import pandas as pd
 import xgboost
+import plotly.figure_factory as ff
+from sklearn.preprocessing import OneHotEncoder
 
 # loading the trained model
 pickle_in = open('models/xgboost_model.pkl', 'rb') 
@@ -43,6 +45,8 @@ map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'o
                                         'frozen temple', 'king sejong station le', 'frost le','apotheosis le', 'ruins of endion', 
                                         'prion terraces', 'ulrena','orbital shipyard', 'central protocol', 'terraform le (void)','coda le (void)']})  
 
+stats = pd.read_csv('data/prepared_data.csv')
+
 @st.cache()
 # defining the function which will make prediction using the data which the user inputs 
 def prediction(player_one, player_two, map_name):
@@ -78,12 +82,18 @@ def prediction(player_one, player_two, map_name):
     else:
         pred = player_one
     return pred
-      
+
+def get_stats(dataframe):
+    chart_data = dataframe[dataframe.date, dataframe.map_name]
+    chart_data = chart_data.groupby('map_name').count()
+    chart_data.reset_index()
+    return chart_data
+
 def main():       
     # front end elements of the web page 
     html_temp = """ 
     <div style ="background-color:black;padding:13px"> 
-    <h1 style ="color:white;text-align:center;">SC2 Predict Game Winner</h1> 
+    <h1 style ="color:white;text-align:center;">Predict Starcraft2 Game Winner</h1> 
     </div> 
     """
       
@@ -100,6 +110,10 @@ def main():
     if st.button("Predict"): 
         result = prediction(playerOne, playerTwo, mapName) 
         st.success('Predicted winner is {}'.format(result))
-
+    
+    st.markdown('Top players: Serral, Maru, Rogue, Dark, Innovation', unsafe_allow_html=False)
+    
+    st.bar_chart(get_stats(stats))
+    
 if __name__=='__main__': 
     main()
