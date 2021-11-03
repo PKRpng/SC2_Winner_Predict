@@ -48,7 +48,8 @@ map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'o
                                         'prion terraces', 'ulrena','orbital shipyard', 'central protocol', 'terraform le (void)','coda le (void)']})  
 
 stats = pd.read_csv('data/prepared_data.csv')
-random_player = player_data.players.values.tolist()
+player_names = player_data.players.values.tolist()
+player_names = ' '.join(player_names)
 
 random_map = stats.groupby('map_name').count().sort_values(by='date', ascending=False).iloc[:15].reset_index().map_name.values.tolist()
 
@@ -100,15 +101,6 @@ def prediction(player_one, player_two, map1, map2, map3):
     
     return score
 
-def rand_player():
-
-    random_list = random.sample(random_player, 2)
-     
-    playerOne = st.text_input('Player One',random_list[0])
-    playerTwo = st.text_input('Player Two',random_list[1])
-        
-    return playerOne, playerTwo
-
 def rand_map():
 
     random_list = random.sample(random_map, 3)
@@ -134,12 +126,16 @@ def main():
     st.markdown(html_temp, unsafe_allow_html = True) 
       
     # following lines create boxes in which user can enter data required to make prediction 
-    playerOne, playerTwo = rand_player()
+    if 'playerOne' not in st.session_state:
+        st.session_state.playerOne = st.text_input('Player One','Serral')
+
+    if 'playerTwo' not in st.session_state:
+        st.session_state.playerTwo = st.text_input('Player Two','Maru')       
     
     st.markdown('Top players: Serral, Maru, Rogue, Dark, Innovation', unsafe_allow_html=False)
     
     st.write('Select two random players')
-    if st.button("Random Players"):
+    if st.button("Random Pl"):
         pass
      
     map1Name, map2Name, map3Name = rand_map()
@@ -149,7 +145,7 @@ def main():
         pass
 
     # when 'Predict' is clicked, make the prediction and store it 
-    if st.button("Predict"): 
+    if st.button("Predict", on_click=increment_counter): 
         result = prediction(playerOne, playerTwo, map1Name, map2Name, map3Name) 
         st.success(result)
     
