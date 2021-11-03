@@ -107,9 +107,9 @@ def rand_map():
     m2_index = map_data[map_data.maps == random_list[1]].index
     m3_index = map_data[map_data.maps == random_list[2]].index
      
-    map1Name = st.selectbox('Map 1',map_data.maps, m1_index)
-    map2Name = st.selectbox('Map 2',map_data.maps, m2_index)
-    map3Name = st.selectbox('Map 3',map_data.maps, m3_index)  
+    map1Name = st.selectbox('Map 1',map_data.maps, 3)
+    map2Name = st.selectbox('Map 2',map_data.maps, 45)
+    map3Name = st.selectbox('Map 3',map_data.maps, 56)  
         
     return map1Name, map2Name, map3Name
     
