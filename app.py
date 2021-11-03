@@ -58,7 +58,7 @@ random_map = stats.groupby('map_name').count().sort_values(by='date', ascending=
 def prediction(player_one, player_two, map1, map2, map3):
     '''preprocess input, check if input exists, add to a dataframe and predict results'''
     # Pre-processing user input
-    player_one, player_two = player_one.lower(), player_two.lower(), map_name.lower()
+    player_one, player_two = player_one.lower(), player_two.lower()
     
     if player_one in player_data.players.values:
         pass
