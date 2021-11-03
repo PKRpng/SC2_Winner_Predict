@@ -145,7 +145,7 @@ def main():
         pass
 
     # when 'Predict' is clicked, make the prediction and store it 
-    if st.button("Predict", on_click=increment_counter): 
+    if st.button("Predict"): 
         result = prediction(playerOne, playerTwo, map1Name, map2Name, map3Name) 
         st.success(result)
     
