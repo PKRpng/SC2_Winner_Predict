@@ -93,8 +93,8 @@ def main():
     # following lines create boxes in which user can enter data required to make prediction 
     playerOne = st.text_input('Player One','Byun')
     playerTwo = st.text_input('Player Two','Maru')
-    mapName = st.text_input('Map','Map')
-    #mapName = st.selectbox('Map',map_data.maps)
+    #mapName = st.text_input('Map','Map')
+    mapName = st.selectbox('Map',map_data.maps)
     result =""
       
     # when 'Predict' is clicked, make the prediction and store it 
