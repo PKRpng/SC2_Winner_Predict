@@ -107,11 +107,11 @@ def select_map(update=False):
         m2_index = map_data[map_data.maps == random_list[1]].index
         m3_index = map_data[map_data.maps == random_list[2]].index
         
-        map1Name = st.selectbox('Map 1',map_data.maps, index=map_data.maps[m1_index])
+        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[m1_index])
 
-        map2Name = st.selectbox('Map 2',map_data.maps, index=map_data.maps[m2_index])
+        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[m2_index])
 
-        map3Name = st.selectbox('Map 3',map_data.maps, index=map_data.maps[m3_index])
+        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[m3_index])
     else:
         map1Name = st.selectbox('Map 1',map_data.maps)
 
