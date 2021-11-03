@@ -58,7 +58,7 @@ random_map = stats.groupby('map_name').count().sort_values(by='date', ascending=
 def prediction(player_one, player_two, map1, map2, map3):
     '''preprocess input, check if input exists, add to a dataframe and predict results'''
     # Pre-processing user input
-    player_one, player_two, map_name = player_one.lower(), player_two.lower(), map_name.lower()
+    player_one, player_two = player_one.lower(), player_two.lower(), map_name.lower()
     
     if player_one in player_data.players.values:
         pass
@@ -69,21 +69,6 @@ def prediction(player_one, player_two, map1, map2, map3):
         pass
     else:
         st.error('cant find this player, make sure the name is correct')
- 
-    if map1 in map_data.maps.values:
-        pass
-    else:
-        st.error('cant find map one, please select another')
-        
-    if map2 in map_data.maps.values:
-        pass
-    else:
-        st.error('cant find map two, please select another')
-     
-    if map3 in map_data.maps.values:
-        pass
-    else:
-        st.error('cant find map three, please select another')
     
     df = pd.DataFrame(data={'map_name':[map1, map2, map3], 'player_one':[player_one, player_one, player_one], 'player_two':[player_two, player_two, player_two]})
     
@@ -137,21 +122,24 @@ def main():
         st.write(player_names)
     
     map1Name = st.selectbox('Map 1',map_data.maps)
-    result1 =""
     
     map2Name = st.selectbox('Map 2',map_data.maps)
-    result2 =""
     
     map3Name = st.selectbox('Map 3',map_data.maps)
-    result3 =""
      
     st.write('Select random maps from top 15 most frequently played maps')
     #Fill maps with random map from top 10
     if st.button("Random Map"): 
         random_list = random.sample(random_map, 3)
-        map1Name = random_list[0]
-        map2Name = random_list[1]
-        map3Name = random_list[2]
+        m1_index = map_data[map_data.maps == random_list[0]].index
+        m2_index = map_data[map_data.maps == random_list[1]].index
+        m3_index = map_data[map_data.maps == random_list[2]].index
+        
+        map1Name = st.selectbox('Map 1',map_data.maps[m1_index])
+
+        map2Name = st.selectbox('Map 2',map_data.maps[m2_index])
+
+        map3Name = st.selectbox('Map 3',map_data.maps[m3_index])
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
