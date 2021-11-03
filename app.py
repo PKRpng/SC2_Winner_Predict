@@ -166,7 +166,7 @@ def main():
     st.write('Select random maps from top 15 most frequently played maps')
     #Fill maps with random map from top 10
     if st.button("Random Maps", on_click=change_value()):
-
+        pass
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
