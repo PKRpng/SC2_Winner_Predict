@@ -6,6 +6,7 @@ import xgboost as xgb
 import numpy
 import plotly
 from sklearn.preprocessing import OneHotEncoder
+import random
 
 # loading the trained model
 pickle_in = open('models/xgboost_model.pkl', 'rb') 
@@ -47,10 +48,14 @@ map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'o
                                         'prion terraces', 'ulrena','orbital shipyard', 'central protocol', 'terraform le (void)','coda le (void)']})  
 
 stats = pd.read_csv('data/prepared_data.csv')
+player_names = player_data.players.values.tolist()
+player_names = ' '.join(player_names)
+
+random_map = stats.groupby('map_name').count().sort_values(by='date', ascending=False).iloc[:15].reset_index().map_name.values.tolist()
 
 @st.cache()
 # defining the function which will make prediction using the data which the user inputs 
-def prediction(player_one, player_two, map_name):
+def prediction(player_one, player_two, map1, map2, map3):
     '''preprocess input, check if input exists, add to a dataframe and predict results'''
     # Pre-processing user input
     player_one, player_two, map_name = player_one.lower(), player_two.lower(), map_name.lower()
@@ -65,36 +70,56 @@ def prediction(player_one, player_two, map_name):
     else:
         st.error('cant find this player, make sure the name is correct')
  
-    if map_name in map_data.maps.values:
+    if map1 in map_data.maps.values:
         pass
     else:
-        st.error('cant find this map, please select another')
+        st.error('cant find map one, please select another')
+        
+    if map2 in map_data.maps.values:
+        pass
+    else:
+        st.error('cant find map two, please select another')
      
-    df = pd.DataFrame(data={'map_name':[map_name], 'player_one':[player_one], 'player_two':[player_two]})
+    if map3 in map_data.maps.values:
+        pass
+    else:
+        st.error('cant find map three, please select another')
+    
+    df = pd.DataFrame(data={'map_name':[map1, map2, map3], 'player_one':[player_one, player_one, player_one], 'player_two':[player_two, player_two, player_two]})
     
     #encode
     X = enc.transform(df)
     
     # Making predictions 
     prediction = model.predict(X)
-     
-    if prediction == 0:
-        pred = player_two
+    
+    if prediction[0] == 0:
+        p1 = 1
     else:
-        pred = player_one
-    return pred
-
-def get_stats(dataframe):
-    chart_data = dataframe[dataframe.date, dataframe.map_name]
-    chart_data = chart_data.groupby('map_name').count()
-    chart_data.reset_index()
-    return chart_data
+        p2 = 1
+    
+    if prediction[1] == 0:
+        p1 += 1
+    else:
+        p2 += 1
+        
+    if prediction[2] == 0:
+        p1 += 1
+    else:
+        p2 += 1
+    
+    if p1 - p2 > 0:
+        score = f'{player_one} is predicted to win the match with a {p1} to {p2} score'
+    else: 
+        score = f'{player_two} is predicted to win the match with a {p2} to {p1} score'
+    
+    return score
 
 def main():       
     # front end elements of the web page 
     html_temp = """ 
     <div style ="background-color:black;padding:13px"> 
-    <h1 style ="color:white;text-align:center;">Predict Starcraft2 Game Winner</h1> 
+    <h1 style ="color:white;text-align:center;">Predict Starcraft 2 Match Winner</h1> 
     </div> 
     """
       
@@ -104,17 +129,34 @@ def main():
     # following lines create boxes in which user can enter data required to make prediction 
     playerOne = st.text_input('Player One','Serral')
     playerTwo = st.text_input('Player Two','Maru')
-    mapName = st.selectbox('Map',map_data.maps)
-    result =""
-      
-    # when 'Predict' is clicked, make the prediction and store it 
-    if st.button("Predict"): 
-        result = prediction(playerOne, playerTwo, mapName) 
-        st.success('Predicted winner is {}'.format(result))
     
     st.markdown('Top players: Serral, Maru, Rogue, Dark, Innovation', unsafe_allow_html=False)
     
-    st.bar_chart(get_stats(stats))
+    with st.expander("See all player names"):
+        names = player_data.players.values.tolist
+        st.write(player_names)
+    
+    map1Name = st.selectbox('Map 1',map_data.maps)
+    result1 =""
+    
+    map2Name = st.selectbox('Map 2',map_data.maps)
+    result2 =""
+    
+    map3Name = st.selectbox('Map 3',map_data.maps)
+    result3 =""
+     
+    st.write('Select random maps from top 15 most frequently played maps')
+    #Fill maps with random map from top 10
+    if st.button("Random Map"): 
+        random_list = random.sample(random_map, 3)
+        map1Name = random_list[0]
+        map2Name = random_list[1]
+        map3Name = random_list[2]
+
+    # when 'Predict' is clicked, make the prediction and store it 
+    if st.button("Predict"): 
+        result = prediction(playerOne, playerTwo, map1Name, map2Name, map3Name) 
+        st.success(result)
     
 if __name__=='__main__': 
     main()
