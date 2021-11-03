@@ -2,6 +2,7 @@
 import pickle
 import streamlit as st
 import pandas as pd
+import xgboost
 
 # loading the trained model
 pickle_in = open('models/xgboost_model.pkl', 'rb') 
