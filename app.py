@@ -100,26 +100,7 @@ def prediction(player_one, player_two, map1, map2, map3):
     
     return score
 
-def select_map(update=False):
-    if update:
-        random_list = random.sample(random_map, 3)
-        m1_index = map_data[map_data.maps == random_list[0]].index
-        m2_index = map_data[map_data.maps == random_list[1]].index
-        m3_index = map_data[map_data.maps == random_list[2]].index
-        
-        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[m1_index])
 
-        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[m2_index])
-
-        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[m3_index])
-    else:
-        map1Name = st.selectbox('Map 1',map_data.maps)
-
-        map2Name = st.selectbox('Map 2',map_data.maps)
-
-        map3Name = st.selectbox('Map 3',map_data.maps)
-        
-        return map1Name, map2Name, map3Name
 
 def main():       
     # front end elements of the web page 
@@ -142,12 +123,25 @@ def main():
         names = player_data.players.values.tolist
         st.write(player_names)
     
-    map1Name, map2Name, map3Name = select_map()
+    map1Name = st.selectbox('Map 1',map_data.maps)
+    
+    map2Name = st.selectbox('Map 2',map_data.maps)
+    
+    map3Name = st.selectbox('Map 3',map_data.maps)
      
     st.write('Select random maps from top 15 most frequently played maps')
     #Fill maps with random map from top 10
     if st.button("Random Map"): 
-        map1Name, map2Name, map3Name = select_map(True)
+        random_list = random.sample(random_map, 3)
+        m1_index = map_data[map_data.maps == random_list[0]].index
+        m2_index = map_data[map_data.maps == random_list[1]].index
+        m3_index = map_data[map_data.maps == random_list[2]].index
+        
+        map1Name = st.selectbox('Map 1',map_data.maps, index=map_data.maps[m1_index])
+
+        map2Name = st.selectbox('Map 2',map_data.maps, index=map_data.maps[m2_index])
+
+        map3Name = st.selectbox('Map 3',map_data.maps, index=map_data.maps[m3_index])
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
