@@ -136,7 +136,7 @@ def main():
         st.write(player_names)
     
     if 'map1Name' not in st.session_state:
-        st.session_state.map1Name = 'jaha'   
+        st.session_state.map1Name = st.selectbox('Map 1',map_data.maps, 54)
      
     map2Name, map3Name = rand_map()
     
