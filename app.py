@@ -101,19 +101,6 @@ def prediction(player_one, player_two, map1, map2, map3):
     
     return score
 
-def rand_map():
-
-    random_list = random.sample(random_map, 3)
-    m1_index = map_data[map_data.maps == random_list[0]].index.values.tolist()[0]
-    m2_index = map_data[map_data.maps == random_list[1]].index.values.tolist()[0]
-    m3_index = map_data[map_data.maps == random_list[2]].index.values.tolist()[0]
-     
-    map1Name = map_data.maps.loc[m1_index]
-    map2Name = map_data.maps.loc[m2_index]
-    map3Name = map_data.maps.loc[m3_index] 
-        
-    return map1Name, map2Name, map3Name
-    
 def main():       
     # front end elements of the web page 
     html_temp = """ 
@@ -135,12 +122,6 @@ def main():
         names = player_data.players.values.tolist
         st.write(player_names)
     
-    def change_value():
-        map1Name, map2Name, map3Name = rand_map()
-        st.session_state.map1Name = map1Name
-        st.session_state.map2Name = map2Name
-        st.session_state.map3Name = map3Name
-    
     def change_m1():
         st.session_state.map1Name = map_one
     
@@ -159,14 +140,9 @@ def main():
     if 'map3Name' not in st.session_state:
         st.session_state.map3Name = ''
     
-    map_one = st.selectbox('Map sil',map_data.maps, 54, on_change=change_value)
-    map_two = st.selectbox('Mapppp',map_data.maps, 2, on_change=change_value)
-    map_three = st.selectbox('Maputy',map_data.maps, 20, on_change=change_value)
-    
-    st.write('Select random maps from top 15 most frequently played maps')
-    #Fill maps with random map from top 10
-    if st.button("Random Maps", on_click=change_value()):
-        change_value()
+    map_one = st.selectbox('Map sil',map_data.maps, 54, on_change=change_m1)
+    map_two = st.selectbox('Mapppp',map_data.maps, 2, on_change=change_m2)
+    map_three = st.selectbox('Maputy',map_data.maps, 20, on_change=change_m3)
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
