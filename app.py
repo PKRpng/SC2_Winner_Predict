@@ -134,10 +134,12 @@ def main():
         names = player_data.players.values.tolist
         st.write(player_names)
      
+    map1Name, map2Name, map3Name = rand_map()
+    
     st.write('Select random maps from top 15 most frequently played maps')
     #Fill maps with random map from top 10
     if st.button("Random Maps"):
-        map1Name, map2Name, map3Name = rand_map()
+        pass
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
