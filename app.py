@@ -104,11 +104,11 @@ def prediction(player_one, player_two, map1, map2, map3):
 def rand_map():
 
     random_list = random.sample(random_map, 3)
-    m1_index = map_data[map_data.maps == random_list[0]].index.values.tolist()[0]
+   # m1_index = map_data[map_data.maps == random_list[0]].index.values.tolist()[0]
     m2_index = map_data[map_data.maps == random_list[1]].index.values.tolist()[0]
     m3_index = map_data[map_data.maps == random_list[2]].index.values.tolist()[0]
      
-    map1Name = st.selectbox('Map 1',map_data.maps, m1_index)
+   # map1Name = st.selectbox('Map 1',map_data.maps, m1_index)
     map2Name = st.selectbox('Map 2',map_data.maps, m2_index)
     map3Name = st.selectbox('Map 3',map_data.maps, m3_index)  
         
@@ -126,21 +126,22 @@ def main():
     st.markdown(html_temp, unsafe_allow_html = True) 
       
     # following lines create boxes in which user can enter data required to make prediction 
-    if 'playerOne' not in st.session_state:
-        st.session_state.playerOne = st.text_input('Player One','Serral')
-
-    if 'playerTwo' not in st.session_state:
-        st.session_state.playerTwo = st.text_input('Player Two','Maru')       
+    playerOne = st.text_input('Player One','Serral')
+    playerTwo = st.text_input('Player Two','Maru')
     
     st.markdown('Top players: Serral, Maru, Rogue, Dark, Innovation', unsafe_allow_html=False)
     
-    st.write('Select two random players')
-    if st.button("Random Pl"):
-        pass
+    with st.expander("See all player names"):
+        names = player_data.players.values.tolist
+        st.write(player_names)
+    
+    if 'map1Name' not in st.session_state:
+        st.session_state.map1Name = 'jaha'   
      
-    map1Name, map2Name, map3Name = rand_map()
+    map2Name, map3Name = rand_map()
     
     st.write('Select random maps from top 15 most frequently played maps')
+    #Fill maps with random map from top 10
     if st.button("Random Maps"):
         pass
 
