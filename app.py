@@ -13,6 +13,9 @@ model = pickle.load(pickle_in)
 pickle_in = open('models/enc.pkl', 'rb') 
 enc = pickle.load(pickle_in)
 
+pickle_in = open('models/enc2.pkl', 'rb') 
+enc2 = pickle.load(pickle_in)
+
 player_data = pd.DataFrame(data={'players':['serral', 'trap', 'parting','reynor','jimrising','gerald','hellraiser','special',
                                            'uthermal','mana','maxpax','solar','showtime','liquidclem','stats','innovation',
                                            'acerbly','rogue','byun','heromarine','bunny','uwuthermal','lambo','blyonfire',
@@ -72,7 +75,7 @@ def prediction(player_one, player_two, map_name):
     df = pd.DataFrame(data={'map_name':[map_name], 'player_one':[player_one], 'player_two':[player_two]})
     
     #encode
-    X = enc.transform(df)
+    X = enc2.transform(df)
     
     # Making predictions 
     prediction = model.predict(X)
