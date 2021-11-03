@@ -131,15 +131,15 @@ def main():
     #Fill maps with random map from top 10
     if st.button("Random Map"): 
         random_list = random.sample(random_map, 3)
-        m1_index = map_data[map_data.maps == random_list[0]].index
-        m2_index = map_data[map_data.maps == random_list[1]].index
-        m3_index = map_data[map_data.maps == random_list[2]].index
+        m1_index = map_data[map_data.maps == random_list[0]].index.values.tolist()
+        m2_index = map_data[map_data.maps == random_list[1]].index.values.tolist()
+        m3_index = map_data[map_data.maps == random_list[2]].index.values.tolist()
         
-        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[m1_index])
+        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[m1_index[0]])
 
-        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[m2_index])
+        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[m2_index[0]])
 
-        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[m3_index])
+        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[m3_index[0]])
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
