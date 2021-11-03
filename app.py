@@ -4,7 +4,7 @@ import streamlit as st
 import pandas as pd
 import xgboost as xgb
 import numpy
-#import plotly
+import plotly
 from sklearn.preprocessing import OneHotEncoder
 
 # loading the trained model
@@ -84,11 +84,11 @@ def prediction(player_one, player_two, map_name):
         pred = player_one
     return pred
 
-#def get_stats(dataframe):
- #   chart_data = dataframe[dataframe.date, dataframe.map_name]
-  #  chart_data = chart_data.groupby('map_name').count()
-   # chart_data.reset_index()
-    #return chart_data
+def get_stats(dataframe):
+    chart_data = dataframe[dataframe.date, dataframe.map_name]
+    chart_data = chart_data.groupby('map_name').count()
+    chart_data.reset_index()
+    return chart_data
 
 def main():       
     # front end elements of the web page 
@@ -114,7 +114,7 @@ def main():
     
     st.markdown('Top players: Serral, Maru, Rogue, Dark, Innovation', unsafe_allow_html=False)
     
-    #st.bar_chart(get_stats(stats))
+    st.bar_chart(get_stats(stats))
     
 if __name__=='__main__': 
     main()
