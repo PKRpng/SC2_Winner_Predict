@@ -48,19 +48,19 @@ map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'o
 def prediction(player_one, player_two, map_name):
     '''preprocess input, check if input exists, add to a dataframe and predict results'''
     # Pre-processing user input
-    player_one, player_two = player_one.lower(), player_two.lower()
+    player_one, player_two, map_name = player_one.lower(), player_two.lower(), map_name.lower()
     
-    if player_one in player_data.players:
+    if player_one in player_data.players.values:
         pass
     else:
         st.error('cant find this player, make sure the name is correct')
         
-    if player_two in player_data.players:
+    if player_two in player_data.players.values:
         pass
     else:
         st.error('cant find this player, make sure the name is correct')
  
-    if map_name in map_data.maps:
+    if map_name in map_data.maps.values:
         pass
     else:
         st.error('cant find this map, please select another')
@@ -91,9 +91,8 @@ def main():
     st.markdown(html_temp, unsafe_allow_html = True) 
       
     # following lines create boxes in which user can enter data required to make prediction 
-    playerOne = st.text_input('Player One','Byun')
+    playerOne = st.text_input('Player One','Serral')
     playerTwo = st.text_input('Player Two','Maru')
-    #mapName = st.text_input('Map','Map')
     mapName = st.selectbox('Map',map_data.maps)
     result =""
       
