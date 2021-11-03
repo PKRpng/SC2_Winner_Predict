@@ -100,8 +100,6 @@ def prediction(player_one, player_two, map1, map2, map3):
     
     return score
 
-
-
 def main():       
     # front end elements of the web page 
     html_temp = """ 
@@ -137,11 +135,11 @@ def main():
         m2_index = map_data[map_data.maps == random_list[1]].index
         m3_index = map_data[map_data.maps == random_list[2]].index
         
-        map1Name = st.selectbox('Map 1',map_data.maps, index=map_data.maps[m1_index])
+        map1Name = st.selectbox('Map 1',map_data.maps, map_data.maps[m1_index])
 
-        map2Name = st.selectbox('Map 2',map_data.maps, index=map_data.maps[m2_index])
+        map2Name = st.selectbox('Map 2',map_data.maps, map_data.maps[m2_index])
 
-        map3Name = st.selectbox('Map 3',map_data.maps, index=map_data.maps[m3_index])
+        map3Name = st.selectbox('Map 3',map_data.maps, map_data.maps[m3_index])
 
     # when 'Predict' is clicked, make the prediction and store it 
     if st.button("Predict"): 
