@@ -15,22 +15,15 @@ model = pickle.load(pickle_in)
 pickle_in = open('models/enc.pkl', 'rb') 
 enc = pickle.load(pickle_in)
 
-player_data = pd.DataFrame(data={'players':['serral', 'trap', 'parting','reynor','jimrising','gerald','hellraiser','special',
-                                           'uthermal','mana','maxpax','solar','showtime','liquidclem','stats','innovation',
-                                           'acerbly','rogue','byun','heromarine','bunny','uwuthermal','lambo','blyonfire',
-                                           'zest','vibe','agoelazer','maru','dark','jason','marinelord','clem','tlharstem','neeb',
-                                           'neeblet','liquidmana','has','nice','rex','enderr','astrea','probe','teebul','namshar','scarlett',
-                                           'nina','future','masa','tlo','epic','skillous','mcanning','pilipili','jonsnow','disk',
-                                           'vindicta','cham','kelazhur','erik','thezerglord','denver','geralt','gungfubanda',
-                                           'rail','soul','ptitdrogo','dns','vanya','souleer','gostephano','kas','krystianer',
-                                           'goblin','ziggy','shadown','time','igmacsed','tyty','llllllllllll','armani','patience',
-                                           'sortof','risky','liquidtlo','elazer','lilbow','silky','seither','harstem','dpgparting',
-                                           'bly','stephano','soo','dear','hurricane','cyan','liquidthermy','semper','tsgsolar','xkawaiian',
-                                           'railgan','beastyqt','zanster','sos','hateme','cure','puck','hero','goreynor','pig',
-                                           'liilllliilll','classic','iiiiiiiiiiii','liquidsnute','nerchio','snute','alive','true',
-                                           'guru','gumiho','optimus','nightend','dayshi','pokebunny','miszu','state','bop','dpgcure',
-                                           'a.i.','drg','arctur','art','dream','bratok','lllllllllll','impact','inzane','rob',
-                                           'liquidtaeja','ogzest','iasonu','cloudy','demuslim','firecake']}) 
+player_data = pd.DataFrame(data={'players':['agoelazer','alive','armani','astrea','bly','bunny','byun','cham','classic',
+                                            'clem','cure','cyan','dark','dayshi','dear','denver','disk','dns','elazer','enderr','epic','erik',
+                                            'future','gerald','goblin','gumiho','gungfubanda','guru','harstem','has','hateme','hellraiser','hero','heromarine','hurricane','igmacsed',
+                                            'innovation','jimrising','jonsnow','kas','kelazhur','krystianer','lambo','lilbow','mana',
+                                            'maru','masa','maxpax','mcanning','miszu','namshar','neeb','nerchio','nice','nightend','nina','optimus',
+                                            'parting','patience','pilipili','probe','ptitdrogo','puck','rail','rex','reynor','risky','rogue',
+                                            'scarlett','seither','semper','serral','shadown','showtime','silky','skillous','snute','solar','soo',
+                                            'sortof','sos','soul','souleer','special','state','stats','stephano','teebul','thezerglord','time',
+                                            'tlo','trap','true','tyty','uthermal','vanya','vindicta','zanster','zest','ziggy']}) 
 map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'oxide le','lightshade le', 'blackburn le', 'romanticide le',
                                         'beckett industries le', 'pillars of gold le', 'submarine le','deathaura le', 'ruins of seras', 
                                         'ice and chrome le','nightshade le', 'lerilak crest', 'world of sleepers le',
@@ -47,11 +40,29 @@ map_data = pd.DataFrame(data={'maps':['jagannatha le', '2000 atmospheres le', 'o
                                         'frozen temple', 'king sejong station le', 'frost le','apotheosis le', 'ruins of endion', 
                                         'prion terraces', 'ulrena','orbital shipyard', 'central protocol', 'terraform le (void)','coda le (void)']})  
 
+
+race_dict = {'agoelazer':'zerg','alive':'terran','armani':'zerg','astrea':'protoss','bly':'zerg',
+             'bunny':'terran','byun':'terran','cham':'zerg','classic':'protoss',
+            'clem':'terran','cure':'terran','cyan':'protoss','dark':'zerg','dayshi':'terran','dear':'protoss','denver':'zerg',
+             'disk':'protoss','dns':'protoss','elazer':'zerg','enderr':'zerg','epic':'terran','erik':'zerg', 
+             'future':'terran','gerald':'protoss','goblin':'protoss','gumiho':'terran','gungfubanda':'protoss','guru':'zerg','harstem':'protoss',
+             'has':'protoss','hateme':'zerg','hellraiser':'protoss','hero':'protoss','heromarine':'terran','hurricane':'protoss',
+             'igmacsed':'protoss','innovation':'terran','jimrising':'zerg','jonsnow':'zerg','kas':'terran',
+             'kelazhur':'terran','krystianer':'protoss','lambo':'zerg','lilbow':'protoss','mana':'protoss',
+             'maru':'terran','masa':'terran','maxpax':'protoss','mcanning':'protoss','miszu':'terran','namshar':'zerg','neeb':'protoss',
+             'nerchio':'zerg','nice':'protoss','nightend':'protoss','nina':'protoss','optimus':'terran',
+             'parting':'protoss','patience':'protoss','pilipili':'protoss','probe':'protoss','ptitdrogo':'protoss',
+             'puck':'protoss','rail':'protoss','rex':'zerg','reynor':'zerg','risky':'zerg','rogue':'zerg',
+             'scarlett':'zerg','seither':'terran','semper':'terran','serral':'zerg','shadown':'protoss','showtime':'protoss',
+             'silky':'zerg','skillous':'protoss','snute':'zerg','solar':'zerg','soo':'zerg',
+             'sortof':'zerg','sos':'protoss','soul':'terran','souleer':'zerg','special':'terran','state':'protoss',
+             'stats':'protoss','stephano':'zerg','teebul':'protoss','thezerglord':'zerg','time':'terran',
+             'tlo':'zerg','trap':'protoss','true':'zerg','tyty':'terran','uthermal':'terran','vanya':'zerg','vindicta':'terran',
+             'zanster':'zerg','zest':'protoss','ziggy':'terran'}
+
 stats = pd.read_csv('data/prepared_data.csv')
 player_names = player_data.players.values.tolist()
 player_names = ' '.join(player_names)
-
-random_map = stats.groupby('map_name').count().sort_values(by='date', ascending=False).iloc[:15].reset_index().map_name.values.tolist()
 
 @st.cache()
 # defining the function which will make prediction using the data which the user inputs 
@@ -70,7 +81,14 @@ def prediction(player_one, player_two, map1, map2, map3):
     else:
         st.error('cant find this player, make sure the name is correct')
     
-    df = pd.DataFrame(data={'map_name':[map1, map2, map3], 'player_one':[player_one, player_one, player_one], 'player_two':[player_two, player_two, player_two]})
+    p1_race = race_dict[player_one]
+    p2_race = race_dict[player_two]
+    
+    df = pd.DataFrame(data={'map_name':[map1, map2, map3], 
+                            'player_one_race':[p1_race, p1_race, p1_race], 
+                            'player_two_race':[p2_race, p2_race, p2_race], 
+                            'player_one':[player_one, player_one, player_one], 
+                            'player_two':[player_two, player_two, player_two]})
     
     #encode
     X = enc.transform(df)
